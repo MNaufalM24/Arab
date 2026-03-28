@@ -1,7 +1,7 @@
 let current = null;
-let lastSentence = null;
+let history = [];
 
-// DATA PALING SIMPLE
+// DATA
 const subjects = [
   { key: "ana", ar: "أنا", en: "I" },
   { key: "anta", ar: "أنتَ", en: "You (m)" },
@@ -27,6 +27,7 @@ function pick(arr) {
 // GENERATE
 function generate() {
   let newSentence = null;
+  let attempts = 0; //
 
   do {
     const subject = pick(subjects);
@@ -44,10 +45,20 @@ function generate() {
       en: sentenceEn
     };
 
-  } while (newSentence.ar === lastSentence);
+    attempts++;
 
-  // simpan sebagai last
-  lastSentence = newSentence.ar;
+    if (attempts > 20) break;
+
+  } while (history.includes(newSentence.ar));
+
+  // simpan ke history
+  history.push(newSentence.ar);
+
+  // batasi history biar ringan
+  if (history.length > 20) {
+    history.shift();
+  }
+
   current = newSentence.ar;
 
   document.getElementById("question").innerText = newSentence.en;
