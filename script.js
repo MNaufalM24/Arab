@@ -8,6 +8,13 @@ function generateSentence() {
   }
 }
 
+function toggleMode() {
+  mode = mode === "verb" ? "noun" : "verb";
+
+  const btn = document.querySelector(".answer");
+  btn.innerText = "Mode: " + (mode === "verb" ? "Verb" : "Noun");
+}
+
 let current = null;
 let history = [];
 
@@ -390,9 +397,10 @@ function generateNounMode() {
     poss + " " +
     noun.ar;
 
-  const sentenceEn =
-    subject.en + " have " +
-    noun.en;
+  function getHave(subjectKey) {
+    const third = ["huwa", "hiya"];
+    return third.includes(subjectKey) ? "has" : "have";
+  }
 
   current = sentenceAr;
 
