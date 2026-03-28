@@ -414,8 +414,8 @@ function generate() {
   document.getElementById("answer").style.display = "none";
 }
 
-const isNegative = Math.random() < 0.5;
 function generateNounMode() {
+  const isNegative = Math.random() < 0.5;
   const subject = pick(subjects);
   const poss = possessive[subject.key];
   const noun = pick(nouns);
@@ -445,9 +445,9 @@ function generateNounMode() {
     const aux = getDoAux(subject.key);
     sentenceEn =
       subject.en + " " +
-      aux + " not have " +
-      noun.en +
-      (adj ? " " + adjEn : "");
+      getHave(subject.key) + " " +
+      (adj ? adjEn + " " : "") +
+      noun.en;
   } else {
     sentenceEn =
       subject.en + " " +
