@@ -13,6 +13,11 @@ const verbs = {
   huwa: "يتكلم"
 };
 
+const places = [
+  { ar: "هنا", en: "here" },
+  { ar: "هناك", en: "there" }
+];
+
 // RANDOM
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -21,11 +26,15 @@ function pick(arr) {
 // GENERATE
 function generate() {
   const subject = pick(subjects);
-
   const verb = verbs[subject.key];
 
-  const sentenceEn = subject.en + " speak";
-  const sentenceAr = subject.ar + " " + verb;
+  const place = Math.random() < 0.5 ? pick(places) : null;
+
+  const sentenceEn =
+    subject.en + " speak " + (place ? place.en : "");
+
+  const sentenceAr =
+    subject.ar + " " + verb + (place ? " " + place.ar : "");
 
   current = sentenceAr;
 
