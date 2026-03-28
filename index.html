@@ -9,23 +9,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    body {
       font-family: 'Inter', sans-serif;
       background: #0f172a;
       color: white;
-      padding: 20px;
+    
       display: flex;
       justify-content: center;
+      align-items: center;
+    
+      height: 100dvh;
     }
     
     .app {
       width: 100%;
       max-width: 600px;
+      text-align: center;
+      padding: 16px;
     }
 
     h1 {
       font-size: 22px;
+      text-align: center;
       margin-bottom: 25px;
       font-weight: 800;
       color: #22c55e; /* soft green */
@@ -38,7 +53,8 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       animation: pop 0.3s ease;
       min-height: 44px;
-      margin-top: 10px;
+      max-height: 90dvh;
+      margin-top: 0;
     }
 
     @keyframes pop {
@@ -48,11 +64,13 @@
 
     #question {
       font-size: 20px;
+      text-align: center;
       line-height: 1.4;
       font-weight: 600;
       margin: 20px 0 12px;
       color: #e2e8f0;
       white-space: normal;
+      margin-top: 10px;
     }
 
     @media (max-width: 480px) {
@@ -62,6 +80,7 @@
     
       #answer {
         font-size: 26px;
+        text-align: center;
       }
     
       button {
@@ -107,6 +126,7 @@
       margin-bottom: 15px;
       font-weight: 600;
       letter-spacing: 1px;
+      text-align: center;
     }
 
     .buttons {
