@@ -169,6 +169,7 @@ const times = [
   { ar: "قبل قليل", en: "earlier", tense: "past" },
 
   { ar: "الآن", en: "now", tense: "present" },
+  { ar: "اليوم", en: "today", tense: "present" },
 
   { ar: "غدًا", en: "tomorrow", tense: "future" },
   { ar: "لاحقًا", en: "later", tense: "future" }
