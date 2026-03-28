@@ -77,6 +77,19 @@ const places = [
 ];
 
 // ======================
+// TIME
+// ======================
+const times = [
+  { ar: "أمس", en: "yesterday", tense: "past" },
+  { ar: "قبل قليل", en: "earlier", tense: "past" },
+
+  { ar: "الآن", en: "now", tense: "present" },
+
+  { ar: "غدًا", en: "tomorrow", tense: "future" },
+  { ar: "لاحقًا", en: "later", tense: "future" }
+];
+
+// ======================
 // ENGLISH RULES
 // ======================
 const englishRules = {
@@ -118,7 +131,8 @@ function generate() {
     subject = pick(subjects);
     verb = pick(verbs); // ⬅️ sekarang random verb
 
-    const tense = pick(["present", "past", "future"]);
+    const time = Math.random() < 0.7 ? pick(times) : null;
+    const tense = time ? time.tense : pick(["present", "past", "future"]);
     const isNegative = Math.random() < 0.5;
     
     let verbAr;
@@ -178,11 +192,17 @@ function generate() {
     }
 
     const sentenceAr =
-      subject.ar + " " + (negation ? negation + " " : "") + verbAr +
-      (place ? " " + place.ar : "");
+      subject.ar + " " +
+      (negation ? negation + " " : "") +
+      verbAr +
+      (place ? " " + place.ar : "") +
+      (time ? " " + time.ar : "");
 
     const sentenceEn =
-      subject.en + " " + verbEn + (place ? " " + place.en : "");
+      subject.en + " " +
+      verbEn +
+      (place ? " " + place.en : "") +
+      (time ? " " + time.en : "");
 
     newSentence = {
       ar: sentenceAr,
