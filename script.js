@@ -29,6 +29,7 @@ const verbs = [
   {
     key: "speak",
     en: "speak",
+    past_en: "spoke",
 
     present: {
       ana: "أتكلم",
@@ -64,6 +65,90 @@ const verbs = [
       huma_f: "تكلمتا",
       hum: "تكلموا",
       hunna: "تكلمْنَ"
+    }
+  },
+
+  {
+    key: "eat",
+    en: "eat",
+    past_en: "ate",
+
+    present: {
+      ana: "آكل",
+      nahnu: "نأكل",
+
+      anta: "تأكل",
+      anti: "تأكلين",
+      antuma: "تأكلان",
+      antum: "تأكلون",
+      antunna: "تأكلْنَ",
+
+      huwa: "يأكل",
+      hiya: "تأكل",
+      huma_m: "يأكلان",
+      huma_f: "تأكلان",
+      hum: "يأكلون",
+      hunna: "يأكلْنَ"
+    },
+
+    past: {
+      ana: "أكلتُ",
+      nahnu: "أكلنا",
+
+      anta: "أكلتَ",
+      anti: "أكلتِ",
+      antuma: "أكلتما",
+      antum: "أكلتم",
+      antunna: "أكلتنّ",
+
+      huwa: "أكلَ",
+      hiya: "أكلتْ",
+      huma_m: "أكلا",
+      huma_f: "أكلتا",
+      hum: "أكلوا",
+      hunna: "أكلْنَ"
+    }
+  },
+
+  {
+    key: "drink",
+    en: "drink",
+    past_en: "drank",
+
+    present: {
+      ana: "أشرب",
+      nahnu: "نشرب",
+
+      anta: "تشرب",
+      anti: "تشربين",
+      antuma: "تشربان",
+      antum: "تشربون",
+      antunna: "تشربْنَ",
+
+      huwa: "يشرب",
+      hiya: "تشرب",
+      huma_m: "يشربان",
+      huma_f: "تشربان",
+      hum: "يشربون",
+      hunna: "يشربْنَ"
+    },
+
+    past: {
+      ana: "شربتُ",
+      nahnu: "شربنا",
+
+      anta: "شربتَ",
+      anti: "شربتِ",
+      antuma: "شربتما",
+      antum: "شربتم",
+      antunna: "شربتنّ",
+
+      huwa: "شربَ",
+      hiya: "شربتْ",
+      huma_m: "شربا",
+      huma_f: "شربتا",
+      hum: "شربوا",
+      hunna: "شربْنَ"
     }
   }
 ];
@@ -167,7 +252,7 @@ function generate() {
     if (tense === "past") {
       verbEn = isNegative
         ? "did not " + verb.en
-        : "spoke";
+        : verb.past_en;
     } else if (tense === "future") {
       verbEn = isNegative
         ? "will not " + verb.en
