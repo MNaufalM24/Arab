@@ -417,29 +417,32 @@ function generate() {
 function generateNounMode() {
   const isNegative = Math.random() < 0.5;
   const isDefinite = Math.random() < 0.5;
+
   const subject = pick(subjects);
   const poss = possessive[subject.key];
   const noun = pick(nouns);
+
+  // 🔥 adjective dulu
+  const useAdj = Math.random() < 0.7;
+  const adj = useAdj ? pick(adjectives) : null;
+
   const nounAr = isDefinite ? "ال" + noun.ar : noun.ar;
   const nounEn = isDefinite
-  ? noun.en.replace(/^a |^an /, "the ")
-  : noun.en;
+    ? noun.en.replace(/^a |^an /, "the ")
+    : noun.en;
+
   const adjArFinal = adj
     ? (isDefinite ? "ال" + adj[noun.gender] : adj[noun.gender])
     : "";
 
-  // 🔥 optional adjective
-  const useAdj = Math.random() < 0.7;
-  const adj = useAdj ? pick(adjectives) : null;
-
-  const adjAr = adj ? adj[noun.gender] : "";
   const adjEn = adj ? adj.en : "";
 
   const sentenceAr =
     subject.ar + " " +
     (isNegative ? "ما " : "") +
     poss + " " +
-    nounAr + (adj ? " " + adjArFinal : "");
+    nounAr +
+    (adj ? " " + adjArFinal : "");
 
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
@@ -462,7 +465,7 @@ function generateNounMode() {
       (adj ? adjEn + " " : "") +
       nounEn;
   }
-  
+
   current = sentenceAr;
 
   document.getElementById("question").innerText = sentenceEn;
