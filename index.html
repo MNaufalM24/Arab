@@ -1,15 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Arabic Practice</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    #question {
+      font-size: 22px;
+      margin: 20px 0;
+      color: #333;
+    }
+
+    #answer {
+      font-size: 26px;
+      margin: 20px 0;
+      color: #1e7a5f;
+      font-family: 'Noto Naskh Arabic', serif;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .generate {
+      background: #1e7a5f;
+      color: white;
+    }
+
+    .generate:hover {
+      background: #166a52;
+    }
+
+    .answer {
+      background: #e0e0e0;
+    }
+
+    .answer:hover {
+      background: #cfcfcf;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+    }
+
+  </style>
 </head>
+
 <body>
 
-  <h2 id="question">Click Generate</h2>
-  <h3 id="answer" style="display:none;"></h3>
+  <div class="card">
+    <h1>Arabic Practice</h1>
 
-  <button onclick="generate()">Generate</button>
-  <button onclick="showAnswer()">Show Answer</button>
+    <div id="question">Click Generate</div>
+    <div id="answer" style="display:none;"></div>
+    <div id="label" class="label"></div>
+
+    <div class="buttons">
+      <button class="generate" onclick="generate()">Generate</button>
+      <button class="answer" onclick="showAnswer()">Show Answer</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
