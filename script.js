@@ -118,10 +118,17 @@ function generate() {
     if (tense === "present") {
       verbAr = verb.present[subject.key];
     } else if (tense === "past") {
-      verbAr = verb.past[subject.key];
+      if (isNegative) {
+        verbAr = verb.present[subject.key]; // لم + present
+      } else {
+        verbAr = verb.past[subject.key];
+      }
     } else {
-      // future = س + present
-      verbAr = "س" + verb.present[subject.key];
+      if (isNegative) {
+        verbAr = verb.present[subject.key]; // لن + present
+      } else {
+        verbAr = "س" + verb.present[subject.key];
+      }
     }
 
     // DEBUG (cek kalau ada yang missing)
@@ -136,17 +143,30 @@ function generate() {
     let verbEn;
 
     if (tense === "past") {
-      verbEn = "spoke";
+      verbEn = isNegative ? "did not " + verb.en : "spoke";
     } else if (tense === "future") {
-      verbEn = "will " + verb.en;
+      verbEn = isNegative ? "will not " + verb.en : "will " + verb.en;
     } else {
-      verbEn = getEnglishVerb(subject.key, verb.en);
+      if (isNegative) {
+        verbEn = "do not " + verb.en;
+      } else {
+        verbEn = getEnglishVerb(subject.key, verb.en);
+      }
     }
     
     const place = Math.random() < 0.5 ? pick(places) : null;
 
+    let negation = "";
+
+    if (isNegative) {
+      if (tense === "present") negation = "لا";
+      else if (tense === "past") negation = "لم";
+      else if (tense === "future") negation = "لن";
+    }
+
     const sentenceAr =
-      subject.ar + " " + verbAr + (place ? " " + place.ar : "");
+      subject.ar + " " + (negation ? negation + " " : "") + verbAr +
+      (place ? " " + place.ar : "");
 
     const sentenceEn =
       subject.en + " " + verbEn + (place ? " " + place.en : "");
