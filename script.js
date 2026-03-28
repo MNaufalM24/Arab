@@ -200,10 +200,37 @@ const possessive = {
   hunna: "عندهنّ"
 };
 
+// ======================
+// NOUNS
+// ======================
+
 const nouns = [
-  { ar: "كتاب", en: "a book" },
-  { ar: "بيت", en: "a house" },
-  { ar: "هاتف", en: "a phone" }
+  { ar: "كتاب", en: "a book", gender: "m" },
+  { ar: "بيت", en: "a house", gender: "m" },
+  { ar: "سيارة", en: "a car", gender: "f" },
+  { ar: "هاتف", en: "a phone", gender: "m" }
+];
+
+// ======================
+// ADJECTIVES
+// ======================
+
+const adjectives = [
+  {
+    en: "big",
+    m: "كبير",
+    f: "كبيرة"
+  },
+  {
+    en: "small",
+    m: "صغير",
+    f: "صغيرة"
+  },
+  {
+    en: "new",
+    m: "جديد",
+    f: "جديدة"
+  }
 ];
 
 // ======================
@@ -392,20 +419,29 @@ function generateNounMode() {
   const poss = possessive[subject.key];
   const noun = pick(nouns);
 
+  // 🔥 optional adjective
+  const useAdj = Math.random() < 0.7;
+  const adj = useAdj ? pick(adjectives) : null;
+
+  const adjAr = adj ? adj[noun.gender] : "";
+  const adjEn = adj ? adj.en : "";
+
   const sentenceAr =
     subject.ar + " " +
     poss + " " +
-    noun.ar;
+    noun.ar +
+    (adj ? " " + adjAr : "");
 
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
     return third.includes(subjectKey) ? "has" : "have";
   }
-  
+
   const sentenceEn =
     subject.en + " " +
     getHave(subject.key) + " " +
-    noun.en;
+    noun.en +
+    (adj ? " " + adjEn : "");
 
   current = sentenceAr;
 
