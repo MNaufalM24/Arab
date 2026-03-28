@@ -414,35 +414,62 @@ function generate() {
   document.getElementById("answer").style.display = "none";
 }
 
+function fixArticle(phrase) {
+  // remove existing a/an
+  phrase = phrase.replace(/^(a|an)\s+/i, "");
+
+  const firstWord = phrase.trim().charAt(0).toLowerCase();
+
+  const vowels = ["a", "e", "i", "o", "u"];
+
+  const article = vowels.includes(firstWord) ? "an" : "a";
+
+  return article + " " + phrase;
+}
+
 function generateNounMode() {
-  const isNegative = Math.random() < 0.5;
-  const isDefinite = Math.random() < 0.5;
+  const isNegative = Math.random() < 0.3;
+  const isDefinite = Math.random() < 0.4;
 
   const subject = pick(subjects);
   const poss = possessive[subject.key];
   const noun = pick(nouns);
 
-  // 🔥 adjective dulu
-  const useAdj = Math.random() < 0.7;
+  // adjective (optional)
+  const useAdj = Math.random() < 0.6;
   const adj = useAdj ? pick(adjectives) : null;
 
+  // ======================
+  // ARABIC
+  // ======================
   const nounAr = isDefinite ? "ال" + noun.ar : noun.ar;
-  const nounEn = isDefinite
-    ? noun.en.replace(/^a |^an /, "the ")
-    : noun.en;
 
-  const adjArFinal = adj
+  const adjAr = adj
     ? (isDefinite ? "ال" + adj[noun.gender] : adj[noun.gender])
     : "";
-
-  const adjEn = adj ? adj.en : "";
 
   const sentenceAr =
     subject.ar + " " +
     (isNegative ? "ما " : "") +
     poss + " " +
     nounAr +
-    (adj ? " " + adjArFinal : "");
+    (adj ? " " + adjAr : "");
+
+  // remove a/an
+  let nounBase = noun.en.replace(/^(a|an)\s+/i, "");
+
+  let nounEn = isDefinite
+    ? "the " + nounBase
+    : nounBase;
+
+  const adjEn = adj ? adj.en : "";
+
+  // 🔥 build noun FIRST
+  const fullNoun = (adj ? adjEn + " " : "") + nounEn;
+
+  const finalNoun = isDefinite
+    ? fullNoun
+    : fixArticle(fullNoun);
 
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
@@ -453,17 +480,16 @@ function generateNounMode() {
 
   if (isNegative) {
     const aux = getDoAux(subject.key);
+
     sentenceEn =
       subject.en + " " +
       aux + " not have " +
-      (adj ? adjEn + " " : "") +
-      nounEn;
+      finalNoun;
   } else {
     sentenceEn =
       subject.en + " " +
       getHave(subject.key) + " " +
-      (adj ? adjEn + " " : "") +
-      nounEn;
+      finalNoun;
   }
 
   current = sentenceAr;
