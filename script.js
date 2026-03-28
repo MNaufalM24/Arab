@@ -292,6 +292,17 @@ function getDoAux(subjectKey) {
   return "do";
 }
 
+function contractNegative(aux) {
+  const map = {
+    "do": "don't",
+    "does": "doesn't",
+    "did": "didn't",
+    "will": "won't"
+  };
+
+  return map[aux] || (aux + "n't");
+}
+
 // ======================
 // RANDOM
 // ======================
@@ -375,16 +386,16 @@ function generate() {
 
     if (tense === "past") {
       verbEn = isNegative
-        ? "did not " + verb.en
+        ? contractNegative("did") + " " + verb.en
         : verb.past_en;
     } else if (tense === "future") {
       verbEn = isNegative
-        ? "will not " + verb.en
+        ? contractNegative("will") + " " + verb.en
         : "will " + verb.en;
     } else {
       if (isNegative) {
         const aux = getDoAux(subject.key);
-        verbEn = aux + " not " + verb.en;
+        verbEn = contractNegative(aux) + " " + verb.en;
       } else {
         verbEn = getEnglishVerb(subject.key, verb.en);
       }
@@ -537,7 +548,7 @@ function generateNounMode() {
 
     sentenceEn =
       subject.en + " " +
-      aux + " not have " +
+      contractNegative(aux) + " have " +
       finalNoun;
   } else {
     sentenceEn =
