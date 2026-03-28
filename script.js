@@ -1,7 +1,9 @@
 let current = null;
 let history = [];
 
-// DATA
+// ======================
+// SUBJECTS
+// ======================
 const subjects = [
   { key: "ana", ar: "أنا", en: "I", label: "sg" },
   { key: "nahnu", ar: "نحن", en: "We", label: "pl" },
@@ -20,51 +22,87 @@ const subjects = [
   { key: "hunna", ar: "هنّ", en: "They", label: "pl f" }
 ];
 
-const verbs = {
-  ana: "أتكلم",
-  nahnu: "نتكلم",
+// ======================
+// VERBS (NEW STRUCTURE)
+// ======================
+const verbs = [
+  {
+    key: "speak",
+    en: "speak",
 
-  anta: "تتكلم",
-  anti: "تتكلمين",
-  antuma: "تتكلمان",
-  antum: "تتكلمون",
-  antunna: "تتكلمْنَ",
+    present: {
+      ana: "أتكلم",
+      nahnu: "نتكلم",
 
-  huwa: "يتكلم",
-  hiya: "تتكلم",
-  huma_m: "يتكلمان",
-  huma_f: "تتكلمان",
-  hum: "يتكلمون",
-  hunna: "يتكلمن"
-};
+      anta: "تتكلم",
+      anti: "تتكلمين",
+      antuma: "تتكلمان",
+      antum: "تتكلمون",
+      antunna: "تتكلمْنَ",
 
+      huwa: "يتكلم",
+      hiya: "تتكلم",
+      huma_m: "يتكلمان",
+      huma_f: "تتكلمان",
+      hum: "يتكلمون",
+      hunna: "يتكلمن"
+    }
+  }
+];
+
+// ======================
+// PLACES
+// ======================
 const places = [
   { ar: "هنا", en: "here" },
   { ar: "هناك", en: "there" }
 ];
 
+// ======================
+// ENGLISH RULES
+// ======================
+const englishRules = {
+  thirdPersonSingular: ["huwa", "hiya"]
+};
+
+function getEnglishVerb(subjectKey, baseVerb) {
+  if (englishRules.thirdPersonSingular.includes(subjectKey)) {
+    return baseVerb + "s";
+  }
+  return baseVerb;
+}
+
+// ======================
 // RANDOM
+// ======================
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// ======================
 // GENERATE
+// ======================
 function generate() {
   let newSentence = null;
   let attempts = 0;
 
-  let subject; // ⬅️ pindahkan ke sini
+  let subject;
+  let verb;
 
   do {
-    subject = pick(subjects); // ⬅️ jangan pakai const lagi di dalam
-    const verb = verbs[subject.key];
+    subject = pick(subjects);
+    verb = pick(verbs); // ⬅️ sekarang random verb
+
+    const verbAr = verb.present[subject.key]; // ⬅️ ambil conjugation
+    const verbEn = getEnglishVerb(subject.key, verb.en);
+
     const place = Math.random() < 0.5 ? pick(places) : null;
 
     const sentenceAr =
-      subject.ar + " " + verb + (place ? " " + place.ar : "");
+      subject.ar + " " + verbAr + (place ? " " + place.ar : "");
 
     const sentenceEn =
-      subject.en + " speak" + (place ? " " + place.en : "");
+      subject.en + " " + verbEn + (place ? " " + place.en : "");
 
     newSentence = {
       ar: sentenceAr,
@@ -84,16 +122,16 @@ function generate() {
 
   current = newSentence.ar;
 
-  // ✅ sekarang subject aman dipakai
   document.getElementById("question").innerText =
     newSentence.en + " (" + subject.label + ")";
 
-  // reset answer
   document.getElementById("answer").innerText = "";
   document.getElementById("answer").style.display = "none";
 }
 
+// ======================
 // SHOW ANSWER
+// ======================
 function showAnswer() {
   document.getElementById("answer").innerText = current;
   document.getElementById("answer").style.display = "block";
