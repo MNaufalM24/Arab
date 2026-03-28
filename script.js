@@ -414,6 +414,7 @@ function generate() {
   document.getElementById("answer").style.display = "none";
 }
 
+const isNegative = Math.random() < 0.5;
 function generateNounMode() {
   const subject = pick(subjects);
   const poss = possessive[subject.key];
@@ -428,6 +429,7 @@ function generateNounMode() {
 
   const sentenceAr =
     subject.ar + " " +
+    (isNegative ? "ما " : "") +
     poss + " " +
     noun.ar +
     (adj ? " " + adjAr : "");
@@ -437,11 +439,22 @@ function generateNounMode() {
     return third.includes(subjectKey) ? "has" : "have";
   }
 
-  const sentenceEn =
-    subject.en + " " +
-    getHave(subject.key) + " " +
-    noun.en +
-    (adj ? " " + adjEn : "");
+  let sentenceEn;
+
+  if (isNegative) {
+    const aux = getDoAux(subject.key);
+    sentenceEn =
+      subject.en + " " +
+      aux + " not have " +
+      noun.en +
+      (adj ? " " + adjEn : "");
+  } else {
+    sentenceEn =
+      subject.en + " " +
+      getHave(subject.key) + " " +
+      noun.en +
+      (adj ? " " + adjEn : "");
+  }
 
   current = sentenceAr;
 
