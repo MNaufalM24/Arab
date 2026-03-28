@@ -435,7 +435,6 @@ function generateNounMode() {
   const poss = possessive[subject.key];
   const noun = pick(nouns);
 
-  // adjective (optional)
   const useAdj = Math.random() < 0.6;
   const adj = useAdj ? pick(adjectives) : null;
 
@@ -455,13 +454,17 @@ function generateNounMode() {
     nounAr +
     (adj ? " " + adjAr : "");
 
-  // remove a/an
-  let nounBase = noun.en.replace(/^(a|an)\s+/i, "");
+  // ======================
+  // ENGLISH (FIXED)
+  // ======================
 
-  let fullNoun;
-  
+  let nounBase = noun.en.replace(/^(a|an)\s+/i, "");
+  const adjEn = adj ? adj.en : "";
+
+  let finalNoun;
+
   if (isDefinite) {
-    fullNoun =
+    finalNoun =
       "the " +
       (adj ? adjEn + " " : "") +
       nounBase;
@@ -469,16 +472,9 @@ function generateNounMode() {
     const temp =
       (adj ? adjEn + " " : "") +
       nounBase;
-  
-    fullNoun = fixArticle(temp);
+
+    finalNoun = fixArticle(temp);
   }
-
-  // 🔥 build noun FIRST
-  const fullNoun = (adj ? adjEn + " " : "") + nounEn;
-
-  const finalNoun = isDefinite
-    ? fullNoun
-    : fixArticle(fullNoun);
 
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
