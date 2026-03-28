@@ -11,7 +11,7 @@ function generateSentence() {
 function toggleMode() {
   mode = mode === "verb" ? "noun" : "verb";
 
-  const btn = document.querySelector(".answer");
+  const btn = document.getElementById("modeBtn");
   btn.innerText = "Mode: " + (mode === "verb" ? "Verb" : "Noun");
 }
 
@@ -401,6 +401,11 @@ function generateNounMode() {
     const third = ["huwa", "hiya"];
     return third.includes(subjectKey) ? "has" : "have";
   }
+  
+  const sentenceEn =
+    subject.en + " " +
+    getHave(subject.key) + " " +
+    noun.en;
 
   current = sentenceAr;
 
