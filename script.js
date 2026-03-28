@@ -112,7 +112,8 @@ function generate() {
     verb = pick(verbs); // ⬅️ sekarang random verb
 
     const tense = pick(["present", "past", "future"]);
-
+    const isNegative = Math.random() < 0.5;
+    
     let verbAr;
 
     if (tense === "present") {
