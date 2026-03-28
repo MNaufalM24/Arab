@@ -51,10 +51,12 @@ function pick(arr) {
 // GENERATE
 function generate() {
   let newSentence = null;
-  let attempts = 0; //
+  let attempts = 0;
+
+  let subject; // ⬅️ pindahkan ke sini
 
   do {
-    const subject = pick(subjects);
+    subject = pick(subjects); // ⬅️ jangan pakai const lagi di dalam
     const verb = verbs[subject.key];
     const place = Math.random() < 0.5 ? pick(places) : null;
 
@@ -70,25 +72,24 @@ function generate() {
     };
 
     attempts++;
-
     if (attempts > 20) break;
 
   } while (history.includes(newSentence.ar));
 
-  // simpan ke history
   history.push(newSentence.ar);
 
-  // batasi history biar ringan
   if (history.length > 20) {
     history.shift();
   }
 
   current = newSentence.ar;
 
+  // ✅ sekarang subject aman dipakai
   document.getElementById("question").innerText =
-  newSentence.en
-    ? newSentence.en + " (" + subject.label + ")"
-    : "⚠️ error generating sentence";
+    newSentence.en + " (" + subject.label + ")";
+
+  // reset answer
+  document.getElementById("answer").innerText = "";
   document.getElementById("answer").style.display = "none";
 }
 
