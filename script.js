@@ -111,6 +111,8 @@ function generate() {
     subject = pick(subjects);
     verb = pick(verbs); // ⬅️ sekarang random verb
 
+    const tense = pick(["present", "past", "future"]);
+
     let verbAr;
 
     if (tense === "present") {
@@ -120,6 +122,15 @@ function generate() {
     } else {
       // future = س + present
       verbAr = "س" + verb.present[subject.key];
+    }
+
+    // DEBUG (cek kalau ada yang missing)
+    if (!verb.present[subject.key]) {
+      console.error("Missing PRESENT conjugation:", subject.key);
+    }
+    
+    if (tense === "past" && !verb.past[subject.key]) {
+      console.error("Missing PAST conjugation:", subject.key);
     }
     
     let verbEn;
@@ -132,8 +143,6 @@ function generate() {
       verbEn = getEnglishVerb(subject.key, verb.en);
     }
     
-    const tense = pick(["present", "past", "future"]);
-
     const place = Math.random() < 0.5 ? pick(places) : null;
 
     const sentenceAr =
