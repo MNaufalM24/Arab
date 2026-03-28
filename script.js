@@ -205,10 +205,34 @@ const possessive = {
 // ======================
 
 const nouns = [
-  { ar: "كتاب", en: "a book", gender: "m" },
-  { ar: "بيت", en: "a house", gender: "m" },
-  { ar: "سيارة", en: "a car", gender: "f" },
-  { ar: "هاتف", en: "a phone", gender: "m" }
+  {
+    ar_singular: "كتاب",
+    ar_plural: "كتب",
+    en_singular: "book",
+    en_plural: "books",
+    gender: "m"
+  },
+  {
+    ar_singular: "بيت",
+    ar_plural: "بيوت",
+    en_singular: "house",
+    en_plural: "houses",
+    gender: "m"
+  },
+  {
+    ar_singular: "سيارة",
+    ar_plural: "سيارات",
+    en_singular: "car",
+    en_plural: "cars",
+    gender: "f"
+  },
+  {
+    ar_singular: "هاتف",
+    ar_plural: "هواتف",
+    en_singular: "phone",
+    en_plural: "phones",
+    gender: "m"
+  }
 ];
 
 // ======================
@@ -430,6 +454,7 @@ function fixArticle(phrase) {
 function generateNounMode() {
   const isNegative = Math.random() < 0.3;
   const isDefinite = Math.random() < 0.4;
+  const isPlural = Math.random() < 0.5;
 
   const subject = pick(subjects);
   const poss = possessive[subject.key];
@@ -441,10 +466,19 @@ function generateNounMode() {
   // ======================
   // ARABIC
   // ======================
-  const nounAr = isDefinite ? "ال" + noun.ar : noun.ar;
+  const baseNounAr = isPlural ? noun.ar_plural : noun.ar_singular;
+  const nounAr = isDefinite ? "ال" + baseNounAr : baseNounAr;
 
+  let adjForm;
+
+  if (isPlural) {
+    adjForm = adj ? adj.f : ""; // aturan simplifikasi
+  } else {
+    adjForm = adj ? adj[noun.gender] : "";
+  }
+  
   const adjAr = adj
-    ? (isDefinite ? "ال" + adj[noun.gender] : adj[noun.gender])
+    ? (isDefinite ? "ال" + adjForm : adjForm)
     : "";
 
   const sentenceAr =
@@ -458,24 +492,39 @@ function generateNounMode() {
   // ENGLISH (FIXED)
   // ======================
 
-  let nounBase = noun.en.replace(/^(a|an)\s+/i, "");
+  const nounBase = isPlural
+  ? noun.en_plural
+  : noun.en_singular;
   const adjEn = adj ? adj.en : "";
 
   let finalNoun;
 
-  if (isDefinite) {
-    finalNoun =
-      "the " +
-      (adj ? adjEn + " " : "") +
-      nounBase;
+  if (isPlural) {
+    if (isDefinite) {
+      finalNoun =
+        "the " +
+        (adj ? adjEn + " " : "") +
+        nounBase;
+    } else {
+      finalNoun =
+        (adj ? adjEn + " " : "") +
+        nounBase;
+    }
   } else {
-    const temp =
-      (adj ? adjEn + " " : "") +
-      nounBase;
-
-    finalNoun = fixArticle(temp);
+    if (isDefinite) {
+      finalNoun =
+        "the " +
+        (adj ? adjEn + " " : "") +
+        nounBase;
+    } else {
+      const temp =
+        (adj ? adjEn + " " : "") +
+        nounBase;
+  
+      finalNoun = fixArticle(temp);
+    }
   }
-
+  
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
     return third.includes(subjectKey) ? "has" : "have";
