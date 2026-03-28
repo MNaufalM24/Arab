@@ -90,6 +90,13 @@ function getEnglishVerb(subjectKey, baseVerb) {
   return baseVerb;
 }
 
+function getDoAux(subjectKey) {
+  if (englishRules.thirdPersonSingular.includes(subjectKey)) {
+    return "does";
+  }
+  return "do";
+}
+
 // ======================
 // RANDOM
 // ======================
@@ -144,12 +151,17 @@ function generate() {
     let verbEn;
 
     if (tense === "past") {
-      verbEn = isNegative ? "did not " + verb.en : "spoke";
+      verbEn = isNegative
+        ? "did not " + verb.en
+        : "spoke";
     } else if (tense === "future") {
-      verbEn = isNegative ? "will not " + verb.en : "will " + verb.en;
+      verbEn = isNegative
+        ? "will not " + verb.en
+        : "will " + verb.en;
     } else {
       if (isNegative) {
-        verbEn = "do not " + verb.en;
+        const aux = getDoAux(subject.key);
+        verbEn = aux + " not " + verb.en;
       } else {
         verbEn = getEnglishVerb(subject.key, verb.en);
       }
