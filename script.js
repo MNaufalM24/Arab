@@ -1,3 +1,13 @@
+let mode = "verb"; // default
+
+function generateSentence() {
+  if (mode === "verb") {
+    generate();
+  } else {
+    generateNounMode();
+  }
+}
+
 let current = null;
 let history = [];
 
