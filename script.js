@@ -27,14 +27,14 @@ const subjects = [
 
   { key: "anta", ar: "أنتَ", en: "You", label: "m" },
   { key: "anti", ar: "أنتِ", en: "You", label: "f" },
-  { key: "antuma", ar: "أنتما", en: "You two", label: "dual" },
+  { key: "antuma", ar: "أنتما", en: "You", label: "dual" },
   { key: "antum", ar: "أنتم", en: "You", label: "pl m" },
   { key: "antunna", ar: "أنتنّ", en: "You", label: "pl f" },
 
   { key: "huwa", ar: "هو", en: "He", label: "m" },
   { key: "hiya", ar: "هي", en: "She", label: "f" },
-  { key: "huma_m", ar: "هما", en: "They two", label: "dual m" },
-  { key: "huma_f", ar: "هما", en: "They two", label: "dual f" },
+  { key: "huma_m", ar: "هما", en: "They", label: "dual m" },
+  { key: "huma_f", ar: "هما", en: "They", label: "dual f" },
   { key: "hum", ar: "هم", en: "They", label: "pl m" },
   { key: "hunna", ar: "هنّ", en: "They", label: "pl f" }
 ];
