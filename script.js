@@ -1,20 +1,28 @@
 let current = null;
 
 // DATA PALING SIMPLE
-const subject = {
-  ar: "أنا",
-  en: "I"
-};
+const subjects = [
+  { ar: "أنا", en: "I" },
+  { ar: "أنتَ", en: "You (m)" },
+  { ar: "هو", en: "He" }
+];
 
 const verb = {
   ar: "أتكلم",
   en: "speak"
 };
 
+// RANDOM
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 // GENERATE
 function generate() {
-  const sentenceEn = subject.en + " " + verb.en;
-  const sentenceAr = subject.ar + " " + verb.ar;
+  const subject = pick(subjects);
+
+  const sentenceEn = subject.en + " speak";
+  const sentenceAr = subject.ar + " أتكلم";
 
   current = sentenceAr;
 
