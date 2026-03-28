@@ -86,7 +86,9 @@ function generate() {
   current = newSentence.ar;
 
   document.getElementById("question").innerText =
-  newSentence.en + " (" + subject.label + ")";
+  newSentence.en
+    ? newSentence.en + " (" + subject.label + ")"
+    : "⚠️ error generating sentence";
   document.getElementById("answer").style.display = "none";
 }
 
