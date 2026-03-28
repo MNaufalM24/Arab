@@ -202,6 +202,29 @@ function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
+  let base = verb.present[subjectKey];
+
+  if (!isNegative) return base;
+
+  // PAST NEGATIVE → لم + majzum
+  if (tense === "past") {
+    if (subjectKey === "hum") return base.replace("ون", "وا");
+    if (subjectKey === "antum") return base.replace("ون", "وا");
+    if (subjectKey === "hunna") return base;
+    return base;
+  }
+
+  // FUTURE NEGATIVE → لن + mansub
+  if (tense === "future") {
+    if (subjectKey === "hum") return base.replace("ون", "وا");
+    if (subjectKey === "antum") return base.replace("ون", "وا");
+    return base;
+  }
+
+  return base;
+}
+
 // ======================
 // GENERATE
 // ======================
@@ -224,20 +247,24 @@ function generate() {
 
     if (tense === "present") {
       verbAr = verb.present[subject.key];
-    } else if (tense === "past") {
+    }
+    
+    else if (tense === "past") {
       if (isNegative) {
-        verbAr = verb.present[subject.key]; // لم + present
+        verbAr = applyArabicGrammar(verb, subject.key, "past", true);
       } else {
         verbAr = verb.past[subject.key];
       }
-    } else {
+    }
+    
+    else {
       if (isNegative) {
-        verbAr = verb.present[subject.key]; // لن + present
+        verbAr = applyArabicGrammar(verb, subject.key, "future", true);
       } else {
         verbAr = "س" + verb.present[subject.key];
       }
     }
-
+    
     // DEBUG (cek kalau ada yang missing)
     if (!verb.present[subject.key]) {
       console.error("Missing PRESENT conjugation:", subject.key);
