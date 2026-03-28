@@ -46,6 +46,24 @@ const verbs = [
       huma_f: "تتكلمان",
       hum: "يتكلمون",
       hunna: "يتكلمن"
+    },
+
+    past: {
+      ana: "تكلمتُ",
+      nahnu: "تكلمنا",
+
+      anta: "تكلمتَ",
+      anti: "تكلمتِ",
+      antuma: "تكلمتما",
+      antum: "تكلمتم",
+      antunna: "تكلمتنّ",
+
+      huwa: "تكلمَ",
+      hiya: "تكلمتْ",
+      huma_m: "تكلما",
+      huma_f: "تكلمتا",
+      hum: "تكلموا",
+      hunna: "تكلمْنَ"
     }
   }
 ];
@@ -93,8 +111,28 @@ function generate() {
     subject = pick(subjects);
     verb = pick(verbs); // ⬅️ sekarang random verb
 
-    const verbAr = verb.present[subject.key]; // ⬅️ ambil conjugation
-    const verbEn = getEnglishVerb(subject.key, verb.en);
+    let verbAr;
+
+    if (tense === "present") {
+      verbAr = verb.present[subject.key];
+    } else if (tense === "past") {
+      verbAr = verb.past[subject.key];
+    } else {
+      // future = س + present
+      verbAr = "س" + verb.present[subject.key];
+    }
+    
+    let verbEn;
+
+    if (tense === "past") {
+      verbEn = "spoke";
+    } else if (tense === "future") {
+      verbEn = "will " + verb.en;
+    } else {
+      verbEn = getEnglishVerb(subject.key, verb.en);
+    }
+    
+    const tense = pick(["present", "past", "future"]);
 
     const place = Math.random() < 0.5 ? pick(places) : null;
 
