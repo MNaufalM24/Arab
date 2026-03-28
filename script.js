@@ -162,6 +162,34 @@ const places = [
 ];
 
 // ======================
+// NOUN MODE DATA
+// ======================
+
+const possessive = {
+  ana: "عندي",
+  nahnu: "عندنا",
+
+  anta: "عندك",
+  anti: "عندكِ",
+  antuma: "عندكما",
+  antum: "عندكم",
+  antunna: "عندكنّ",
+
+  huwa: "عنده",
+  hiya: "عندها",
+  huma_m: "عندهما",
+  huma_f: "عندهما",
+  hum: "عندهم",
+  hunna: "عندهنّ"
+};
+
+const nouns = [
+  { ar: "كتاب", en: "a book" },
+  { ar: "بيت", en: "a house" },
+  { ar: "هاتف", en: "a phone" }
+];
+
+// ======================
 // TIME
 // ======================
 const times = [
@@ -337,6 +365,29 @@ function generate() {
 
   document.getElementById("question").innerText =
     newSentence.en + " (" + subject.label + ")";
+
+  document.getElementById("answer").innerText = "";
+  document.getElementById("answer").style.display = "none";
+}
+
+function generateNounMode() {
+  const subject = pick(subjects);
+  const poss = possessive[subject.key];
+  const noun = pick(nouns);
+
+  const sentenceAr =
+    subject.ar + " " +
+    poss + " " +
+    noun.ar;
+
+  const sentenceEn =
+    subject.en + " have " +
+    noun.en;
+
+  current = sentenceAr;
+
+  document.getElementById("question").innerText =
+    sentenceEn + " (" + subject.label + ")";
 
   document.getElementById("answer").innerText = "";
   document.getElementById("answer").style.display = "none";
