@@ -416,9 +416,17 @@ function generate() {
 
 function generateNounMode() {
   const isNegative = Math.random() < 0.5;
+  const isDefinite = Math.random() < 0.5;
   const subject = pick(subjects);
   const poss = possessive[subject.key];
   const noun = pick(nouns);
+  const nounAr = isDefinite ? "ال" + noun.ar : noun.ar;
+  const nounEn = isDefinite
+  ? noun.en.replace(/^a |^an /, "the ")
+  : noun.en;
+  const adjArFinal = adj
+    ? (isDefinite ? "ال" + adj[noun.gender] : adj[noun.gender])
+    : "";
 
   // 🔥 optional adjective
   const useAdj = Math.random() < 0.7;
@@ -431,8 +439,7 @@ function generateNounMode() {
     subject.ar + " " +
     (isNegative ? "ما " : "") +
     poss + " " +
-    noun.ar +
-    (adj ? " " + adjAr : "");
+    nounAr + (adj ? " " + adjArFinal : "");
 
   function getHave(subjectKey) {
     const third = ["huwa", "hiya"];
@@ -445,17 +452,17 @@ function generateNounMode() {
     const aux = getDoAux(subject.key);
     sentenceEn =
       subject.en + " " +
-      getHave(subject.key) + " " +
+      aux + " not have " +
       (adj ? adjEn + " " : "") +
-      noun.en;
+      nounEn;
   } else {
     sentenceEn =
       subject.en + " " +
       getHave(subject.key) + " " +
-      noun.en +
-      (adj ? " " + adjEn : "");
+      (adj ? adjEn + " " : "") +
+      nounEn;
   }
-
+  
   current = sentenceAr;
 
   document.getElementById("question").innerText = sentenceEn;
