@@ -380,8 +380,8 @@ function generate() {
 
   current = newSentence.ar;
 
-  document.getElementById("question").innerText =
-    newSentence.en + " (" + subject.label + ")";
+  document.getElementById("question").innerText = newSentence.en;
+  document.getElementById("label").innerText = subject.label;
 
   document.getElementById("answer").innerText = "";
   document.getElementById("answer").style.display = "none";
@@ -409,8 +409,8 @@ function generateNounMode() {
 
   current = sentenceAr;
 
-  document.getElementById("question").innerText =
-    sentenceEn + " (" + subject.label + ")";
+  document.getElementById("question").innerText = sentenceEn;
+  document.getElementById("label").innerText = subject.label;
 
   document.getElementById("answer").innerText = "";
   document.getElementById("answer").style.display = "none";
