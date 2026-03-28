@@ -458,11 +458,20 @@ function generateNounMode() {
   // remove a/an
   let nounBase = noun.en.replace(/^(a|an)\s+/i, "");
 
-  let nounEn = isDefinite
-    ? "the " + nounBase
-    : nounBase;
-
-  const adjEn = adj ? adj.en : "";
+  let fullNoun;
+  
+  if (isDefinite) {
+    fullNoun =
+      "the " +
+      (adj ? adjEn + " " : "") +
+      nounBase;
+  } else {
+    const temp =
+      (adj ? adjEn + " " : "") +
+      nounBase;
+  
+    fullNoun = fixArticle(temp);
+  }
 
   // 🔥 build noun FIRST
   const fullNoun = (adj ? adjEn + " " : "") + nounEn;
