@@ -1,4 +1,5 @@
 let current = null;
+let lastSentence = null;
 
 // DATA PALING SIMPLE
 const subjects = [
@@ -25,20 +26,31 @@ function pick(arr) {
 
 // GENERATE
 function generate() {
-  const subject = pick(subjects);
-  const verb = verbs[subject.key];
+  let newSentence = null;
 
-  const place = Math.random() < 0.5 ? pick(places) : null;
+  do {
+    const subject = pick(subjects);
+    const verb = verbs[subject.key];
+    const place = Math.random() < 0.5 ? pick(places) : null;
 
-  const sentenceEn =
-    subject.en + " speak " + (place ? place.en : "");
+    const sentenceAr =
+      subject.ar + " " + verb + (place ? " " + place.ar : "");
 
-  const sentenceAr =
-    subject.ar + " " + verb + (place ? " " + place.ar : "");
+    const sentenceEn =
+      subject.en + " speak " + (place ? place.en : "");
 
-  current = sentenceAr;
+    newSentence = {
+      ar: sentenceAr,
+      en: sentenceEn
+    };
 
-  document.getElementById("question").innerText = sentenceEn;
+  } while (newSentence.ar === lastSentence);
+
+  // simpan sebagai last
+  lastSentence = newSentence.ar;
+  current = newSentence.ar;
+
+  document.getElementById("question").innerText = newSentence.en;
   document.getElementById("answer").style.display = "none";
 }
 
