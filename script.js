@@ -16,6 +16,13 @@ function toggleMode() {
   btn.innerText = "Mode: " + (mode === "verb" ? "Verb" : "Noun");
 }
 
+function toggleDialect() {
+  dialect = dialect === "msa" ? "kw" : "msa";
+
+  const btn = document.getElementById("dialectBtn");
+  btn.innerText = "Dialect: " + (dialect === "msa" ? "MSA" : "Kuwait");
+}
+
 let current = null;
 let history = [];
 
