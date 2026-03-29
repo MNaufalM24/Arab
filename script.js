@@ -343,8 +343,8 @@ function getForm(formObj, subjectKey) {
 }
 
 function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
-  let base = verb.present[subjectKey];
-
+  let base = getForm(verb.present, subjectKey);
+  
   if (!isNegative) return base;
 
   // PAST NEGATIVE → لم + majzum
@@ -406,9 +406,9 @@ function generate() {
     }
     
     // DEBUG (cek kalau ada yang missing)
-    if (!verb.present[subject.key]) {
-      console.error("Missing PRESENT conjugation:", subject.key);
-    }
+    // if (!verb.present[subject.key]) {
+    //   console.error("Missing PRESENT conjugation:", subject.key);
+    // }
     
     if (tense === "past" && !verb.past[subject.key]) {
       console.error("Missing PAST conjugation:", subject.key);
