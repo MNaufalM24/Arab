@@ -102,13 +102,13 @@ const verbs = [
       msa: {
         ana: "آكل",
         nahnu: "نأكل",
-    
+
         anta: "تأكل",
         anti: "تأكلين",
         antuma: "تأكلان",
         antum: "تأكلون",
         antunna: "تأكلْنَ",
-    
+
         huwa: "يأكل",
         hiya: "تأكل",
         huma_m: "يأكلان",
@@ -116,7 +116,7 @@ const verbs = [
         hum: "يأكلون",
         hunna: "يأكلْنَ"
       },
-    
+
       kw: {
         ana: "آكل",
         anta: "تاكل",
@@ -128,13 +128,13 @@ const verbs = [
       msa: {
         ana: "أكلتُ",
         nahnu: "أكلنا",
-    
+
         anta: "أكلتَ",
         anti: "أكلتِ",
         antuma: "أكلتما",
         antum: "أكلتم",
         antunna: "أكلتنّ",
-    
+
         huwa: "أكلَ",
         hiya: "أكلتْ",
         huma_m: "أكلا",
@@ -142,12 +142,13 @@ const verbs = [
         hum: "أكلوا",
         hunna: "أكلْنَ"
       },
-    
+
       kw: {
         ana: "اكلت",
         huwa: "اكل"
       }
-    },
+    }
+  },
 
   {
     key: "drink",
