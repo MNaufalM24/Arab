@@ -22,21 +22,21 @@ let history = [];
 // SUBJECTS
 // ======================
 const subjects = [
-  { key: "ana", ar: "أنا", en: "I", label: "sg" },
-  { key: "nahnu", ar: "نحن", en: "We", label: "pl" },
+  { key: "ana", ar: "أنا", en: "I", label: "single" },
+  { key: "nahnu", ar: "نحن", en: "We", label: "plural" },
 
-  { key: "anta", ar: "أنتَ", en: "You", label: "m" },
-  { key: "anti", ar: "أنتِ", en: "You", label: "f" },
+  { key: "anta", ar: "أنتَ", en: "You", label: "male" },
+  { key: "anti", ar: "أنتِ", en: "You", label: "female" },
   { key: "antuma", ar: "أنتما", en: "You", label: "dual" },
-  { key: "antum", ar: "أنتم", en: "You", label: "pl m" },
-  { key: "antunna", ar: "أنتنّ", en: "You", label: "pl f" },
+  { key: "antum", ar: "أنتم", en: "You", label: "plural male" },
+  { key: "antunna", ar: "أنتنّ", en: "You", label: "plural female" },
 
-  { key: "huwa", ar: "هو", en: "He", label: "m" },
-  { key: "hiya", ar: "هي", en: "She", label: "f" },
-  { key: "huma_m", ar: "هما", en: "They", label: "dual m" },
-  { key: "huma_f", ar: "هما", en: "They", label: "dual f" },
-  { key: "hum", ar: "هم", en: "They", label: "pl m" },
-  { key: "hunna", ar: "هنّ", en: "They", label: "pl f" }
+  { key: "huwa", ar: "هو", en: "He", label: "male" },
+  { key: "hiya", ar: "هي", en: "She", label: "female" },
+  { key: "huma_m", ar: "هما", en: "They", label: "dual male" },
+  { key: "huma_f", ar: "هما", en: "They", label: "dual female" },
+  { key: "hum", ar: "هم", en: "They", label: "plural male" },
+  { key: "hunna", ar: "هنّ", en: "They", label: "plural female" }
 ];
 
 // ======================
