@@ -1,4 +1,5 @@
-let mode = "verb"; // default
+let mode = "verb";
+let dialect = "msa";
 
 function generateSentence() {
   if (mode === "verb") {
