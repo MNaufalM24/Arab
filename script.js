@@ -343,6 +343,19 @@ function getForm(formObj, subjectKey) {
   return formObj[subjectKey];
 }
 
+function getNegation(tense, isNegative) {
+  if (!isNegative) return "";
+
+  if (dialect === "kw") {
+    return "ما";
+  }
+
+  // MSA
+  if (tense === "present") return "لا";
+  if (tense === "past") return "لم";
+  if (tense === "future") return "لن";
+}
+
 function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
   let base = getForm(verb.present, subjectKey);
   
@@ -436,8 +449,8 @@ function generate() {
     
     const place = Math.random() < 0.5 ? pick(places) : null;
 
-    let negation = "";
-
+    let negation = getNegation(tense, isNegative);
+    
     if (isNegative) {
       if (tense === "present") negation = "لا";
       else if (tense === "past") negation = "لم";
