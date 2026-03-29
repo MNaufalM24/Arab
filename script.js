@@ -334,12 +334,16 @@ function pick(arr) {
 }
 
 function getForm(formObj, subjectKey) {
-  // kalau sudah ada dialect (nanti dipakai)
   if (formObj[dialect] && formObj[dialect][subjectKey]) {
     return formObj[dialect][subjectKey];
   }
 
-  // fallback ke MSA (struktur lama)
+  // fallback ke msa (NEW FIX)
+  if (formObj.msa) {
+    return formObj.msa[subjectKey];
+  }
+
+  // fallback ke old structure
   return formObj[subjectKey];
 }
 
