@@ -318,6 +318,16 @@ function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function getForm(formObj, subjectKey) {
+  // kalau sudah ada dialect (nanti dipakai)
+  if (formObj[dialect] && formObj[dialect][subjectKey]) {
+    return formObj[dialect][subjectKey];
+  }
+
+  // fallback ke MSA (struktur lama)
+  return formObj[subjectKey];
+}
+
 function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
   let base = verb.present[subjectKey];
 
@@ -362,14 +372,14 @@ function generate() {
     let verbAr;
 
     if (tense === "present") {
-      verbAr = verb.present[subject.key];
+      verbAr = getForm(verb.present, subject.key);
     }
     
     else if (tense === "past") {
       if (isNegative) {
         verbAr = applyArabicGrammar(verb, subject.key, "past", true);
       } else {
-        verbAr = verb.past[subject.key];
+        verbAr = getForm(verb.past, subject.key);
       }
     }
     
@@ -377,7 +387,7 @@ function generate() {
       if (isNegative) {
         verbAr = applyArabicGrammar(verb, subject.key, "future", true);
       } else {
-        verbAr = "س" + verb.present[subject.key];
+        verbAr = "س" + getForm(verb.present, subject.key);
       }
     }
     
