@@ -404,14 +404,17 @@ function generate() {
   let verb;
 
   do {
-    subject = pick(subjects);
     if (dialect === "kw") {
       const kwSubjects = subjects.filter(s =>
         ["ana", "anta", "huwa"].includes(s.key)
       );
       subject = pick(kwSubjects);
+  
+      const kwVerbs = verbs.filter(v => v.present.kw);
+      verb = pick(kwVerbs);
     } else {
       subject = pick(subjects);
+      verb = pick(verbs);
     }
 
     const time = Math.random() < 0.7 ? pick(times) : null;
