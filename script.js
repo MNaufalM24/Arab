@@ -334,16 +334,18 @@ function pick(arr) {
 }
 
 function getForm(formObj, subjectKey) {
-  if (formObj[dialect] && formObj[dialect][subjectKey]) {
-    return formObj[dialect][subjectKey];
+  if (dialect === "kw") {
+    if (formObj.kw && formObj.kw[subjectKey]) {
+      return formObj.kw[subjectKey];
+    }
+    return null;
   }
 
-  // fallback ke msa (NEW FIX)
+  // MSA normal
   if (formObj.msa) {
     return formObj.msa[subjectKey];
   }
 
-  // fallback ke old structure
   return formObj[subjectKey];
 }
 
@@ -360,12 +362,21 @@ function getNegation(tense, isNegative) {
   if (tense === "future") return "لن";
 }
 
+function getFuturePrefix() {
+  if (dialect === "kw") return "راح";
+  return "س";
+}
+
 function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
   let base = getForm(verb.present, subjectKey);
-  
+  if (!base) return null;
+
+  if (dialect === "kw") {
+    return base;
+  }
+
   if (!isNegative) return base;
 
-  // PAST NEGATIVE → لم + majzum
   if (tense === "past") {
     if (subjectKey === "hum") return base.replace("ون", "وا");
     if (subjectKey === "antum") return base.replace("ون", "وا");
@@ -373,7 +384,6 @@ function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
     return base;
   }
 
-  // FUTURE NEGATIVE → لن + mansub
   if (tense === "future") {
     if (subjectKey === "hum") return base.replace("ون", "وا");
     if (subjectKey === "antum") return base.replace("ون", "وا");
@@ -395,7 +405,14 @@ function generate() {
 
   do {
     subject = pick(subjects);
-    verb = pick(verbs); // ⬅️ sekarang random verb
+    if (dialect === "kw") {
+      const kwSubjects = subjects.filter(s =>
+        ["ana", "anta", "huwa"].includes(s.key)
+      );
+      subject = pick(kwSubjects);
+    } else {
+      subject = pick(subjects);
+    }
 
     const time = Math.random() < 0.7 ? pick(times) : null;
     const tense = time ? time.tense : pick(["present", "past", "future"]);
@@ -404,22 +421,30 @@ function generate() {
     let verbAr;
 
     if (tense === "present") {
-      verbAr = getForm(verb.present, subject.key);
-    }
+          const form = getForm(verb.present, subject.key);
+    if (!form) continue; // skip kalau tidak ada Kuwait
+    verbAr = form;
+        }
     
     else if (tense === "past") {
       if (isNegative) {
         verbAr = applyArabicGrammar(verb, subject.key, "past", true);
+        if (!verbAr) continue;
       } else {
-        verbAr = getForm(verb.past, subject.key);
+        const form = getForm(verb.past, subject.key);
+        if (!form) continue;
+        verbAr = form;
       }
     }
     
     else {
       if (isNegative) {
         verbAr = applyArabicGrammar(verb, subject.key, "future", true);
+        if (!verbAr) continue;
       } else {
-        verbAr = "س" + getForm(verb.present, subject.key);
+        const form = getForm(verb.present, subject.key);
+        if (!form) continue;
+        verbAr = getFuturePrefix() + " " + form;
       }
     }
     
@@ -454,12 +479,6 @@ function generate() {
     const place = Math.random() < 0.5 ? pick(places) : null;
 
     let negation = getNegation(tense, isNegative);
-    
-    if (isNegative) {
-      if (tense === "present") negation = "لا";
-      else if (tense === "past") negation = "لم";
-      else if (tense === "future") negation = "لن";
-    }
 
     const sentenceAr =
       subject.ar + " " +
