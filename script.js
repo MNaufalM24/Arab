@@ -57,39 +57,54 @@ const verbs = [
     past_en: "spoke",
 
     present: {
-      ana: "أتكلم",
-      nahnu: "نتكلم",
-
-      anta: "تتكلم",
-      anti: "تتكلمين",
-      antuma: "تتكلمان",
-      antum: "تتكلمون",
-      antunna: "تتكلمْنَ",
-
-      huwa: "يتكلم",
-      hiya: "تتكلم",
-      huma_m: "يتكلمان",
-      huma_f: "تتكلمان",
-      hum: "يتكلمون",
-      hunna: "يتكلمن"
+      msa: {
+        ana: "أتكلم",
+        nahnu: "نتكلم",
+    
+        anta: "تتكلم",
+        anti: "تتكلمين",
+        antuma: "تتكلمان",
+        antum: "تتكلمون",
+        antunna: "تتكلمْنَ",
+    
+        huwa: "يتكلم",
+        hiya: "تتكلم",
+        huma_m: "يتكلمان",
+        huma_f: "تتكلمان",
+        hum: "يتكلمون",
+        hunna: "يتكلمن"
+      },
+    
+      kw: {
+        ana: "أتكلم",
+        anta: "تتكلم",
+        huwa: "يتكلم"
+      }
     },
 
     past: {
-      ana: "تكلمتُ",
-      nahnu: "تكلمنا",
-
-      anta: "تكلمتَ",
-      anti: "تكلمتِ",
-      antuma: "تكلمتما",
-      antum: "تكلمتم",
-      antunna: "تكلمتنّ",
-
-      huwa: "تكلمَ",
-      hiya: "تكلمتْ",
-      huma_m: "تكلما",
-      huma_f: "تكلمتا",
-      hum: "تكلموا",
-      hunna: "تكلمْنَ"
+      msa: {
+        ana: "تكلمتُ",
+        nahnu: "تكلمنا",
+    
+        anta: "تكلمتَ",
+        anti: "تكلمتِ",
+        antuma: "تكلمتما",
+        antum: "تكلمتم",
+        antunna: "تكلمتنّ",
+    
+        huwa: "تكلمَ",
+        hiya: "تكلمتْ",
+        huma_m: "تكلما",
+        huma_f: "تكلمتا",
+        hum: "تكلموا",
+        hunna: "تكلمْنَ"
+      },
+    
+      kw: {
+        ana: "تكلمت",
+        huwa: "تكلم"
+      }
     }
   },
 
@@ -156,39 +171,54 @@ const verbs = [
     past_en: "drank",
 
     present: {
-      ana: "أشرب",
-      nahnu: "نشرب",
-
-      anta: "تشرب",
-      anti: "تشربين",
-      antuma: "تشربان",
-      antum: "تشربون",
-      antunna: "تشربْنَ",
-
-      huwa: "يشرب",
-      hiya: "تشرب",
-      huma_m: "يشربان",
-      huma_f: "تشربان",
-      hum: "يشربون",
-      hunna: "يشربْنَ"
+      msa: {
+        ana: "أشرب",
+        nahnu: "نشرب",
+    
+        anta: "تشرب",
+        anti: "تشربين",
+        antuma: "تشربان",
+        antum: "تشربون",
+        antunna: "تشربْنَ",
+    
+        huwa: "يشرب",
+        hiya: "تشرب",
+        huma_m: "يشربان",
+        huma_f: "تشربان",
+        hum: "يشربون",
+        hunna: "يشربْنَ"
+      },
+    
+      kw: {
+        ana: "أشرب",
+        anta: "تشرب",
+        huwa: "يشرب"
+      }
     },
-
+    
     past: {
-      ana: "شربتُ",
-      nahnu: "شربنا",
-
-      anta: "شربتَ",
-      anti: "شربتِ",
-      antuma: "شربتما",
-      antum: "شربتم",
-      antunna: "شربتنّ",
-
-      huwa: "شربَ",
-      hiya: "شربتْ",
-      huma_m: "شربا",
-      huma_f: "شربتا",
-      hum: "شربوا",
-      hunna: "شربْنَ"
+      msa: {
+        ana: "شربتُ",
+        nahnu: "شربنا",
+    
+        anta: "شربتَ",
+        anti: "شربتِ",
+        antuma: "شربتما",
+        antum: "شربتم",
+        antunna: "شربتنّ",
+    
+        huwa: "شربَ",
+        hiya: "شربتْ",
+        huma_m: "شربا",
+        huma_f: "شربتا",
+        hum: "شربوا",
+        hunna: "شربْنَ"
+      },
+    
+      kw: {
+        ana: "شربت",
+        huwa: "شرب"
+      }
     }
   }
 ];
