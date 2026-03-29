@@ -99,41 +99,55 @@ const verbs = [
     past_en: "ate",
 
     present: {
-      ana: "آكل",
-      nahnu: "نأكل",
-
-      anta: "تأكل",
-      anti: "تأكلين",
-      antuma: "تأكلان",
-      antum: "تأكلون",
-      antunna: "تأكلْنَ",
-
-      huwa: "يأكل",
-      hiya: "تأكل",
-      huma_m: "يأكلان",
-      huma_f: "تأكلان",
-      hum: "يأكلون",
-      hunna: "يأكلْنَ"
+      msa: {
+        ana: "آكل",
+        nahnu: "نأكل",
+    
+        anta: "تأكل",
+        anti: "تأكلين",
+        antuma: "تأكلان",
+        antum: "تأكلون",
+        antunna: "تأكلْنَ",
+    
+        huwa: "يأكل",
+        hiya: "تأكل",
+        huma_m: "يأكلان",
+        huma_f: "تأكلان",
+        hum: "يأكلون",
+        hunna: "يأكلْنَ"
+      },
+    
+      kw: {
+        ana: "آكل",
+        anta: "تاكل",
+        huwa: "ياكل"
+      }
     },
 
     past: {
-      ana: "أكلتُ",
-      nahnu: "أكلنا",
-
-      anta: "أكلتَ",
-      anti: "أكلتِ",
-      antuma: "أكلتما",
-      antum: "أكلتم",
-      antunna: "أكلتنّ",
-
-      huwa: "أكلَ",
-      hiya: "أكلتْ",
-      huma_m: "أكلا",
-      huma_f: "أكلتا",
-      hum: "أكلوا",
-      hunna: "أكلْنَ"
-    }
-  },
+      msa: {
+        ana: "أكلتُ",
+        nahnu: "أكلنا",
+    
+        anta: "أكلتَ",
+        anti: "أكلتِ",
+        antuma: "أكلتما",
+        antum: "أكلتم",
+        antunna: "أكلتنّ",
+    
+        huwa: "أكلَ",
+        hiya: "أكلتْ",
+        huma_m: "أكلا",
+        huma_f: "أكلتا",
+        hum: "أكلوا",
+        hunna: "أكلْنَ"
+      },
+    
+      kw: {
+        ana: "اكلت",
+        huwa: "اكل"
+      }
+    },
 
   {
     key: "drink",
