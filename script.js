@@ -76,9 +76,12 @@ const verbs = [
       },
     
       kw: {
-        ana: "أتكلم",
+        ana: "اتكلم",
         anta: "تتكلم",
-        huwa: "يتكلم"
+        anti: "تتكلمين",
+        huwa: "يتكلم",
+        hiya: "تتكلم",
+        hum: "يتكلمون"
       }
     },
 
@@ -103,7 +106,11 @@ const verbs = [
     
       kw: {
         ana: "تكلمت",
-        huwa: "تكلم"
+        anta: "تكلمت",
+        anti: "تكلمتي",
+        huwa: "تكلم",
+        hiya: "تكلمت",
+        hum: "تكلموا"
       }
     }
   },
@@ -135,7 +142,10 @@ const verbs = [
       kw: {
         ana: "آكل",
         anta: "تاكل",
-        huwa: "ياكل"
+        anti: "تاكلين",
+        huwa: "ياكل",
+        hiya: "تاكل",
+        hum: "ياكلون"
       }
     },
 
@@ -160,7 +170,11 @@ const verbs = [
 
       kw: {
         ana: "اكلت",
-        huwa: "اكل"
+        anta: "اكلت",
+        anti: "اكلتي",
+        huwa: "اكل",
+        hiya: "اكلت",
+        hum: "اكلوا"
       }
     }
   },
@@ -190,9 +204,12 @@ const verbs = [
       },
     
       kw: {
-        ana: "أشرب",
+        ana: "اشرب",
         anta: "تشرب",
-        huwa: "يشرب"
+        anti: "تشربين",
+        huwa: "يشرب",
+        hiya: "تشرب",
+        hum: "يشربون"
       }
     },
     
@@ -217,7 +234,11 @@ const verbs = [
     
       kw: {
         ana: "شربت",
-        huwa: "شرب"
+        anta: "شربت",
+        anti: "شربتي",
+        huwa: "شرب",
+        hiya: "شربت",
+        hum: "شربوا"
       }
     }
   }
@@ -257,7 +278,10 @@ const possessive = {
   kw: {
     ana: "عندي",
     anta: "عندك",
-    huwa: "عنده"
+    anti: "عندج",
+    huwa: "عنده",
+    hiya: "عندها",
+    hum: "عندهم"
   }
 };
 
@@ -448,12 +472,13 @@ function generate() {
 
   do {
     if (dialect === "kw") {
-      const kwSubjects = subjects.filter(s =>
-        ["ana", "anta", "huwa"].includes(s.key)
-      );
-      subject = pick(kwSubjects);
-  
       const kwVerbs = verbs.filter(v => v.present.kw);
+    
+      const validSubjects = subjects.filter(s =>
+        kwVerbs.some(v => v.present.kw[s.key])
+      );
+    
+      subject = pick(validSubjects);
       verb = pick(kwVerbs);
     } else {
       subject = pick(subjects);
@@ -569,17 +594,17 @@ function fixArticle(phrase) {
 }
 
 function generateNounMode() {
-  let subject;
+
+  let filtered;
 
   if (dialect === "kw") {
-    const kwSubjects = subjects.filter(s =>
-      ["ana", "anta", "huwa"].includes(s.key)
-    );
-    subject = pick(kwSubjects);
+    filtered = subjects.filter(s => possessive.kw[s.key]);
   } else {
-    subject = pick(subjects);
+    filtered = subjects;
   }
-  
+
+  let subject = pick(filtered);
+
   const isNegative = Math.random() < 0.3;
   const isDefinite = dialect === "kw"
     ? Math.random() < 0.2
@@ -587,7 +612,7 @@ function generateNounMode() {
   const isPlural = Math.random() < 0.5;
 
   let poss;
-  
+
   if (dialect === "kw") {
     poss = possessive.kw[subject.key];
     if (!poss) return generateNounMode();
