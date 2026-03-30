@@ -597,8 +597,8 @@ function generateNounMode() {
   
   const noun = pick(nouns);
 
-  const useAdj = Math.random() < 0.6;
-  const useIntensifier = Math.random() < 0.4;
+  const useAdj = Math.random() < 0.7;
+  const useIntensifier = useAdj && Math.random() < 0.6;
   const adj = useAdj ? pick(adjectives) : null;
 
   // ======================
