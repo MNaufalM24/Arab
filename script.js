@@ -494,15 +494,6 @@ function generate() {
       }
     }
     
-    // DEBUG (cek kalau ada yang missing)
-    // if (!verb.present[subject.key]) {
-    //   console.error("Missing PRESENT conjugation:", subject.key);
-    // }
-    
-    if (tense === "past" && !verb.past[subject.key]) {
-      console.error("Missing PAST conjugation:", subject.key);
-    }
-    
     let verbEn;
 
     if (tense === "past") {
@@ -590,10 +581,11 @@ function generateNounMode() {
   }
   
   const isNegative = Math.random() < 0.3;
-  const isDefinite = Math.random() < 0.4;
+  const isDefinite = dialect === "kw"
+    ? Math.random() < 0.2
+    : Math.random() < 0.4;
   const isPlural = Math.random() < 0.5;
 
-  const subject = pick(subjects);
   let poss;
   
   if (dialect === "kw") {
