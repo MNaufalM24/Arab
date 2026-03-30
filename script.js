@@ -236,21 +236,29 @@ const places = [
 // ======================
 
 const possessive = {
-  ana: "عندي",
-  nahnu: "عندنا",
+  msa: {
+    ana: "عندي",
+    nahnu: "عندنا",
 
-  anta: "عندك",
-  anti: "عندكِ",
-  antuma: "عندكما",
-  antum: "عندكم",
-  antunna: "عندكنّ",
+    anta: "عندك",
+    anti: "عندكِ",
+    antuma: "عندكما",
+    antum: "عندكم",
+    antunna: "عندكنّ",
 
-  huwa: "عنده",
-  hiya: "عندها",
-  huma_m: "عندهما",
-  huma_f: "عندهما",
-  hum: "عندهم",
-  hunna: "عندهنّ"
+    huwa: "عنده",
+    hiya: "عندها",
+    huma_m: "عندهما",
+    huma_f: "عندهما",
+    hum: "عندهم",
+    hunna: "عندهنّ"
+  },
+
+  kw: {
+    ana: "عندي",
+    anta: "عندك",
+    huwa: "عنده"
+  }
 };
 
 // ======================
@@ -395,6 +403,11 @@ function getNegation(tense, isNegative) {
 function getFuturePrefix() {
   if (dialect === "kw") return "راح";
   return "س";
+}
+
+function getIntensifier() {
+  if (dialect === "kw") return "وايد";
+  return "جدًا";
 }
 
 function applyArabicGrammar(verb, subjectKey, tense, isNegative) {
@@ -565,15 +578,35 @@ function fixArticle(phrase) {
 }
 
 function generateNounMode() {
+  let subject;
+
+  if (dialect === "kw") {
+    const kwSubjects = subjects.filter(s =>
+      ["ana", "anta", "huwa"].includes(s.key)
+    );
+    subject = pick(kwSubjects);
+  } else {
+    subject = pick(subjects);
+  }
+  
   const isNegative = Math.random() < 0.3;
   const isDefinite = Math.random() < 0.4;
   const isPlural = Math.random() < 0.5;
 
   const subject = pick(subjects);
-  const poss = possessive[subject.key];
+  let poss;
+  
+  if (dialect === "kw") {
+    poss = possessive.kw[subject.key];
+    if (!poss) return generateNounMode();
+  } else {
+    poss = possessive.msa[subject.key];
+  }
+  
   const noun = pick(nouns);
 
   const useAdj = Math.random() < 0.6;
+  const useIntensifier = Math.random() < 0.4;
   const adj = useAdj ? pick(adjectives) : null;
 
   // ======================
@@ -599,7 +632,17 @@ function generateNounMode() {
     (isNegative ? "ما " : "") +
     poss + " " +
     nounAr +
-    (adj ? " " + adjAr : "");
+    (adj
+      ? " " +
+        (
+          useIntensifier
+            ? (dialect === "kw"
+                ? getIntensifier() + " " + adjAr   // وايد كبير
+                : adjAr + " " + getIntensifier()  // كبير جدًا
+              )
+            : adjAr
+        )
+      : "")
 
   // ======================
   // ENGLISH (FIXED)
