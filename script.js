@@ -643,7 +643,11 @@ function generateNounMode() {
   const nounBase = isPlural
   ? noun.en_plural
   : noun.en_singular;
-  const adjEn = adj ? adj.en : "";
+  let adjEn = adj ? adj.en : "";
+
+  if (useIntensifier && adjEn) {
+    adjEn = "very " + adjEn;
+  }
 
   let finalNoun;
 
